@@ -1,0 +1,13 @@
+Make Node app
+Run it Locally
+Register bot, have it set up to run locally
+Test it out in your group
+Figure out how to have it upload images
+
+Put on Heroku and have it annoy Sam
+
+Figure out Node.js webscraping
+Get garfield images
+Post them to Writers Guild
+
+Win
