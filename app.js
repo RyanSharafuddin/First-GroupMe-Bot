@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded()); //necesary to handle post requests
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
   //console.log(req.body);
-  if(req.sender_type != 'bot') {
+  if(req.body.sender_type != 'bot') {
     console.log("A non-bot posted something")
     // request.post(
     // 'https://api.groupme.com/v3/bots/post',
