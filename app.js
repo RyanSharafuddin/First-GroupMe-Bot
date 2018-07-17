@@ -12,7 +12,8 @@ app.get('/', function(req, res) {
 
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
-  console.log(req.text);
+  var j = JSON.parse(req);
+  console.log(j.text);
   next();
 });
 
