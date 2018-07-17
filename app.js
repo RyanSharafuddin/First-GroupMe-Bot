@@ -13,6 +13,9 @@ app.get('/', function(req, res) {
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
   var j = JSON.parse(req);
+  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+  console.log(req);
+  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
   console.log(j.text);
   next();
 });
