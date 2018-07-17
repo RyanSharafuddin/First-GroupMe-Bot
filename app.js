@@ -11,7 +11,8 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res, next) {
-  console.log("Someone has posted something.");
+  console.log("Someone posted something.");
+  console.log(req);
   next();
 });
 
