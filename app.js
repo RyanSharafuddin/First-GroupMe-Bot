@@ -3,6 +3,7 @@ var app = express();
 var path = require('path');
 var http = require('http').Server(app);
 var request = require('request');
+var bodyParser = require('body-parser'); //used for getting body of posts. I think.
 var port = process.env.PORT || 8000;
 
 app.get('/', function(req, res) {
@@ -10,13 +11,12 @@ app.get('/', function(req, res) {
   res.send("Hello World!");
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded()); //necesary to handle post requests
+
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-  console.log(req);
-  console.log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
-  var j = JSON.parse(req);
-  console.log(j.text);
+  console.log(req.body);
   next();
 });
 
