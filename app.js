@@ -23,7 +23,7 @@ app.post('/', function(req, res, next) {
     'https://api.groupme.com/v3/bots/post',
     { json: {
         "bot_id"  : "ceba1b427e02f186aa357b9103",
-        "text"    : ((req.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
+        "text"    : ((req.body.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
       }
     }
     );
