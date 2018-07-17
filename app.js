@@ -12,7 +12,7 @@ app.get('/', function(req, res) {
 
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
-  console.log(JSON.stringify(req.body));
+  console.log(req.body);
   next();
 });
 
