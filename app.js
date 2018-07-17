@@ -16,16 +16,20 @@ app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
-  console.log(req.body);
+  //console.log(req.body);
   if(req.sender_type != 'bot') {
-    request.post(
-    'https://api.groupme.com/v3/bots/post',
-    { json: {
-        "bot_id"  : "ceba1b427e02f186aa357b9103",
-        "text"    : ((req.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
-      }
-    }
-    );
+    console.log("A non-bot posted something")
+    // request.post(
+    // 'https://api.groupme.com/v3/bots/post',
+    // { json: {
+    //     "bot_id"  : "ceba1b427e02f186aa357b9103",
+    //     "text"    : ((req.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
+    //   }
+    // }
+    // );
+  }
+  else {
+    console.log("A bot posted something");
   }
   next();
 });
