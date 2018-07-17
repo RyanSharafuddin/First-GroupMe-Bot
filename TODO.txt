@@ -1,11 +1,12 @@
-Register bot, have it set up to run locally
-Test it out in your group
-Figure out how to have it upload images
 
-Put on Heroku and have it annoy Sam
+2) Respond to other people's texts
+3) Put it on the Mafia group
 
-Figure out Node.js webscraping
-Get garfield images
-Post them to Writers Guild
+
+1) Figure out how to post images
+
+1) Figure out Node.js (or Python) webscraping
+2) Get garfield images
+3) Post them to Writers Guild
 
 Win
