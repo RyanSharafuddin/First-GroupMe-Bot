@@ -3,7 +3,7 @@ var app = express();
 var path = require('path');
 var http = require('http').Server(app);
 var request = require('request');
-var bodyParser = require('body-parser'); //used for getting body of posts. I think.
+var bodyParser = require('body-parser'); //used for getting body of posts.
 var port = process.env.PORT || 8000;
 
 app.get('/', function(req, res) {
@@ -17,6 +17,14 @@ app.use(bodyParser.urlencoded()); //necesary to handle post requests
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
   console.log(req.body);
+  request.post(
+  'https://api.groupme.com/v3/bots/post',
+  { json: {
+      "bot_id"  : "ceba1b427e02f186aa357b9103",
+      "text"    : ((req.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
+    }
+  }
+  );
   next();
 });
 
