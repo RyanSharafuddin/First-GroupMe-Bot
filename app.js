@@ -17,14 +17,16 @@ app.use(bodyParser.urlencoded()); //necesary to handle post requests
 app.post('/', function(req, res, next) {
   console.log("Someone posted something.");
   console.log(req.body);
-  request.post(
-  'https://api.groupme.com/v3/bots/post',
-  { json: {
-      "bot_id"  : "ceba1b427e02f186aa357b9103",
-      "text"    : ((req.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
+  if(req.name != 'Mafia Detector') {
+    request.post(
+    'https://api.groupme.com/v3/bots/post',
+    { json: {
+        "bot_id"  : "ceba1b427e02f186aa357b9103",
+        "text"    : ((req.sender_id == '57386805') ? "Fardeen has posted" : "Ryan has posted")
+      }
     }
+    );
   }
-  );
   next();
 });
 
