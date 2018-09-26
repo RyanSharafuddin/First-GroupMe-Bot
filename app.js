@@ -28,7 +28,7 @@ app.post('/', function(req, res, next) {
     }
     );
   }
-  else {
+  else { //not Sam
 
   }
   next();
@@ -36,6 +36,17 @@ app.post('/', function(req, res, next) {
 
 http.listen(port, function() {
     console.log('listening on *: ' + port);
+    console.log("Remember that if you are running this on your local machine," +
+       " you need to set the environment variable using export BOT_ID for it to work." +
+       " The export keyword is important.");
+    request.post(
+    'https://api.groupme.com/v3/bots/post',
+    { json: {
+        "bot_id"  : bot_id,
+        "text"    : "TEST. BOT IS ONLINE!"
+      }
+    }
+    );
     request.post(
     'https://api.groupme.com/v3/bots/post',
     { json: {
