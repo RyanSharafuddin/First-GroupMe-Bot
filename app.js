@@ -9,6 +9,17 @@ var port = process.env.PORT || 8000;
 var bot_id = process.env.BOT_ID;
 var sam_id = "48077875";
 
+function botPost(text) {
+  request.post(
+  'https://api.groupme.com/v3/bots/post',
+  { json: {
+      "bot_id"  : bot_id,
+      "text"    : text
+    }
+  }
+  );
+}
+
 app.get('/', function(req, res) {
   console.log("Got request for main page");
   res.send("Hello World!");
@@ -18,15 +29,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
 app.post('/', function(req, res, next) {
+  botPost(req.body.name + " has posted!");
   if(req.body.sender_id == sam_id) {
-    request.post(
-    'https://api.groupme.com/v3/bots/post',
-    { json: {
-        "bot_id"  : bot_id,
-        "text"    : "Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all."
-      }
-    }
-    );
+    botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
   }
   else { //not Sam
 
@@ -39,14 +44,7 @@ http.listen(port, function() {
     console.log("Remember that if you are running this on your local machine," +
        " you need to set the environment variable using export BOT_ID for it to work." +
        " The export keyword is important.");
-    request.post(
-    'https://api.groupme.com/v3/bots/post',
-    { json: {
-        "bot_id"  : bot_id,
-        "text"    : "TEST. BOT IS ONLINE!"
-      }
-    }
-    );
+    botPost("THE BOT IS NOW ONLINE!");
 //     request.post(
 //     'https://api.groupme.com/v3/bots/post',
 //     { json: {
