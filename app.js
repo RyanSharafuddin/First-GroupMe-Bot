@@ -8,6 +8,7 @@ var port = process.env.PORT || 8000;
 
 var bot_id = process.env.BOT_ID;
 var sam_id = "48077875";
+var LIMIT = 10;
 
 function botPost(text) {
   request.post(
@@ -29,7 +30,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
 app.post('/', function(req, res, next) {
-  botPost(req.body.name + " has posted!");
+  LIMIT -= 1;
+  if (LIMIT == 0) {
+    return;
+  }
+  // if(req.body.sender_id != ) {
+  //
+  // }
+  botPost("created_at: " + req.body.created_at
+            + "\nid: " + req.body.id
+            + "\nname: " + req.body.name
+            + "\nsender_id: " + req.body.sender_id
+            + "\nsender_type: " + req.body.sender_type
+            + "\nsource_guid: " + req.body.source_guid
+            + "\nsystem: " + req.body.system
+            + "\nuser_id: " + req.body.user_id);
   if(req.body.sender_id == sam_id) {
     botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
   }
