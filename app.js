@@ -47,17 +47,17 @@ http.listen(port, function() {
       }
     }
     );
-    request.post(
-    'https://api.groupme.com/v3/bots/post',
-    { json: {
-        "bot_id"  : bot_id,
-        "text"    : "No need to fear the mafia any longer! My highly advanced analytics shall protect your feeble human minds from the mafia from now on!"
-      }
-    },
-    function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            console.log(body)
-        }
-    }
-);
+//     request.post(
+//     'https://api.groupme.com/v3/bots/post',
+//     { json: {
+//         "bot_id"  : bot_id,
+//         "text"    : "No need to fear the mafia any longer! My highly advanced analytics shall protect your feeble human minds from the mafia from now on!"
+//       }
+//     },
+//     function (error, response, body) {
+//         if (!error && response.statusCode == 200) {
+//             console.log(body)
+//         }
+//     }
+// );
 });
