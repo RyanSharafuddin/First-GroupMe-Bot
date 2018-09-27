@@ -43,7 +43,7 @@ if(req.body.name == "Fuddin") {
   console.log("Has received message from Fuddin; is about to do first client.query()");
   var fuddinMessages;
   client.query("SELECT name, num_of_messages FROM messagenums WHERE name = 'Fuddin' ;", (err, res) => {
-        if (err) throw err;
+        //if (err) throw err;
         //res.rows is array of rows
         fuddinMessages = res.rows[0]["num_of_messages"];
         fuddinMessages += 1;
