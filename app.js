@@ -1,3 +1,9 @@
+/*
+  This version of the program maintains a database of
+  the number of times Fuddin posts in the FuddinTestGroup and every time Fuddin
+  posts, the bot makes a post of its own saying how many times Fuddin has posted
+  and also all fields of the bot response (except text).
+*/
 var express = require('express');
 var app = express();
 var path = require('path');
