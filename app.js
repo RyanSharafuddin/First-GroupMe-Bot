@@ -46,12 +46,12 @@ if(req.body.name == "Fuddin") {
         //res.rows is array of rows
         fuddinMessages = res.rows[0]["num_of_messages"];
         fuddinMessages += 1;
-        client.end();
+        //client.end();
   });
   client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
         if (err) throw err;
         //res.rows is array of rows
-        client.end();
+        //client.end();
   });
   botPost("Fuddin has posted " + fuddinMessages + " messages");
 }
