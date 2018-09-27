@@ -50,7 +50,7 @@ if(req.body.name == "Fuddin") {
         //client.end();
   });
   client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
-        if (err) throw err;
+        //if (err) throw err;
         //res.rows is array of rows
         //client.end();
   });
