@@ -40,6 +40,7 @@ app.use(bodyParser.urlencoded()); //necesary to handle post requests
 app.post('/', function(req, res, next) {
 
 if(req.body.name == "Fuddin") {
+  console.log("Has received message from Fuddin; is about to do first client.query()");
   var fuddinMessages;
   client.query("SELECT name, num_of_messages FROM messagenums WHERE name = 'Fuddin' ;", (err, res) => {
         if (err) throw err;
