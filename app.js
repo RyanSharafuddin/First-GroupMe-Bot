@@ -46,6 +46,10 @@ if(req.body.name == "Fuddin") {
         //if (err) throw err;
         //res.rows is array of rows
         fuddinMessages = res.rows[0]["num_of_messages"];
+        console.log("After performing query, the value of fuddinMessages is: ");
+        console.log(fuddinMessages);
+        console.log("res.rows is: ")
+        console.log(res.rows);
         fuddinMessages += 1;
         //client.end();
   });
