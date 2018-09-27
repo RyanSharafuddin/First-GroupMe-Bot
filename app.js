@@ -51,7 +51,7 @@ if(req.body.name == "Fuddin") {
         console.log("res.rows is: ")
         console.log(res.rows);
         fuddinMessages += 1;
-        client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
+        client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin' ;", (err, res) => {
           botPost("Fuddin has posted " + fuddinMessages + " messages");
         });
         //client.end();
