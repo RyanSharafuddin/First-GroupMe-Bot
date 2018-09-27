@@ -6,6 +6,15 @@ var request = require('request');
 var bodyParser = require('body-parser'); //used for getting body of posts.
 var port = process.env.PORT || 8000;
 
+const { Client } = require('pg'); //database stuff
+
+const client = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
+
 var bot_id = process.env.BOT_ID;
 var sam_id = "48077875";
 
@@ -29,6 +38,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
 app.post('/', function(req, res, next) {
+
+if(req.body.name == "Fuddin") {
+  var fuddinMessages;
+  client.query("SELECT name, num_of_messages FROM messagenums WHERE name = 'Fuddin' ;", (err, res) => {
+        if (err) throw err;
+        //res.rows is array of rows
+        fuddinMessages = res.rows[0]["num_of_messages"];
+        fuddinMessages += 1;
+        client.end();
+  });
+  client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
+        if (err) throw err;
+        //res.rows is array of rows
+        client.end();
+  });
+  botPost("Fuddin has posted " + fuddinMessages + " messages");
+}
+
   if(req.body.name != "Mafia Detector") { //ignore own posts
     botPost("created_at: " + req.body.created_at
               + "\nid: " + req.body.id
@@ -38,6 +65,7 @@ app.post('/', function(req, res, next) {
               + "\nsource_guid: " + req.body.source_guid
               + "\nsystem: " + req.body.system
               + "\nuser_id: " + req.body.user_id);
+
   }
   if(req.body.sender_id == sam_id) {
     botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
