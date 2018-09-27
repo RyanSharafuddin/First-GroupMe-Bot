@@ -53,6 +53,7 @@ if(req.body.name == "Fuddin") {
         fuddinMessages += 1;
         //client.end();
   });
+  console.log("On line 56, fuddinMessages is: " + fuddinMessages);
   client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
         //if (err) throw err;
         //res.rows is array of rows
