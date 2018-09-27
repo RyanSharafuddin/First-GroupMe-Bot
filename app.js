@@ -51,15 +51,11 @@ if(req.body.name == "Fuddin") {
         console.log("res.rows is: ")
         console.log(res.rows);
         fuddinMessages += 1;
+        client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
+          botPost("Fuddin has posted " + fuddinMessages + " messages");
+        });
         //client.end();
   });
-  console.log("On line 56, fuddinMessages is: " + fuddinMessages);
-  client.query("UPDATE messagenums SET num_of_messages = " + fuddinMessages + " WHERE name = 'Fuddin ;'", (err, res) => {
-        //if (err) throw err;
-        //res.rows is array of rows
-        //client.end();
-  });
-  botPost("Fuddin has posted " + fuddinMessages + " messages");
 }
 
   if(req.body.name != "Mafia Detector") { //ignore own posts
