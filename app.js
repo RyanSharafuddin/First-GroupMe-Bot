@@ -11,7 +11,16 @@ var http = require('http').Server(app);
 var request = require('request');
 var bodyParser = require('body-parser'); //used for getting body of posts.
 var port = process.env.PORT || 8000;
-const aki = require('akinator-api');
+const aki = require('aki-api');
+
+// aki.start("en", (resolve, error) => {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log(resolve);
+//   }
+// });
+
 
 var twentyQStartValues = ["20Q", "20q", "20 Questions", "20 questions"];
 var inTwentyQ = false; //PUT IN DATABASE
@@ -51,15 +60,15 @@ function displayAnswers() {
   botPost("4 - Probably not");
 }
 
-app.get('/', function(req, res) {
-  console.log("Got request for main page");
-  res.send("Hello World!");
-});
+// app.get('/', function(req, res) {
+//   console.log("Got request for main page");
+//   res.send("Hello World!");
+// });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
-app.post('/', function(req, res, next) {
+app.get('/', function(req, res, next) { //CHANGED back to post
 
 // if(req.body.name == "Fuddin") {
 //   console.log("Has received message from Fuddin; is about to do first client.query()");
@@ -95,7 +104,7 @@ app.post('/', function(req, res, next) {
     botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
   }
 
-  if(twentyQStartValues.includes("20Q")) { //start -put req.body.text back in
+  if(twentyQStartValues.includes("20Q")) { //CHANGED -put req.body.text back in
     // inTwentyQ = true; //DATABASE
     // aki.start("en", (resolve, error) => {
     //   if (error) {
@@ -110,6 +119,7 @@ app.post('/', function(req, res, next) {
     //     displayAnswers();
     //   }
     // });
+
     aki.start("en", (resolve, error) => {
       if (error) {
         console.log(error);
@@ -117,6 +127,7 @@ app.post('/', function(req, res, next) {
         console.log(resolve);
       }
     });
+
     // const data = await akinator.start("en");
     // signature = data.signature; //DATABASE
     // session = data.session; //DATABASE
