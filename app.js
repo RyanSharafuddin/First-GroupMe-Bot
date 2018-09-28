@@ -10,8 +10,8 @@ var path = require('path');
 var http = require('http').Server(app);
 var request = require('request');
 var bodyParser = require('body-parser'); //used for getting body of posts.
-const akinator = require('akinator-api');
 var port = process.env.PORT || 8000;
+const aki = require('akinator-api');
 
 var twentyQStartValues = ["20Q", "20q", "20 Questions", "20 questions"];
 var inTwentyQ = false; //PUT IN DATABASE
@@ -97,25 +97,25 @@ app.post('/', function(req, res, next) {
 
   if(twentyQStartValues.includes(req.body.text)) { //start
     inTwentyQ = true; //DATABASE
-    // akinator.start("en", (resolve, error) => {
-    //   if (error) {
-    //     botPost("20 Questions is broken. Sorry.");
-    //     inTwentyQ = false; //DATABASE
-    //   }
-    //   else {
-        // signature = resolve.signature; //DATABASE
-        // session = resolve.session; //DATABASE
-        // step = 0; //DATABASE
-        // botPost(resolve.question);
-        // displayAnswers();
-    //   }
-    // });
-    const data = await akinator.start("en");
-    signature = data.signature; //DATABASE
-    session = data.session; //DATABASE
-    step = 0; //DATABASE
-    botPost(data.question);
-    displayAnswers();
+    aki.start("en", (resolve, error) => {
+      if (error) {
+        botPost("20 Questions is broken. Sorry.");
+        inTwentyQ = false; //DATABASE
+      }
+      else {
+        signature = resolve.signature; //DATABASE
+        session = resolve.session; //DATABASE
+        step = 0; //DATABASE
+        botPost(resolve.question);
+        displayAnswers();
+      }
+    });
+    // const data = await akinator.start("en");
+    // signature = data.signature; //DATABASE
+    // session = data.session; //DATABASE
+    // step = 0; //DATABASE
+    // botPost(data.question);
+    // displayAnswers();
 
   }
 
