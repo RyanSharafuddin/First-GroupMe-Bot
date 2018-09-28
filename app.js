@@ -60,15 +60,15 @@ function displayAnswers() {
   botPost("4 - Probably not");
 }
 
-// app.get('/', function(req, res) {
-//   console.log("Got request for main page");
-//   res.send("Hello World!");
-// });
+app.get('/', function(req, res) {
+  console.log("Got request for main page");
+  res.send("Hello World!");
+});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
-app.get('/', function(req, res, next) { //CHANGED back to post
+app.post('/', function(req, res, next) { //CHANGED back to post
 
 // if(req.body.name == "Fuddin") {
 //   console.log("Has received message from Fuddin; is about to do first client.query()");
@@ -104,7 +104,7 @@ app.get('/', function(req, res, next) { //CHANGED back to post
     botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
   }
 
-  if(twentyQStartValues.includes("20Q")) { //CHANGED -put req.body.text back in
+  if(twentyQStartValues.includes(req.body.text)) { //CHANGED -put req.body.text back in
     // inTwentyQ = true; //DATABASE
     // aki.start("en", (resolve, error) => {
     //   if (error) {
@@ -123,8 +123,16 @@ app.get('/', function(req, res, next) { //CHANGED back to post
     aki.start("en", (resolve, error) => {
       if (error) {
         console.log(error);
+        botPost("20 Questions is broken. Sorry.");
+        inTwentyQ = false; //DATABASE
       } else {
         console.log(resolve);
+        inTwentyQ = true; //DATABASE
+        signature = resolve.signature; //DATABASE
+        session = resolve.session; //DATABASE
+        step = 0; //DATABASE
+        botPost(resolve.question);
+        displayAnswers();
       }
     });
 
