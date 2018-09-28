@@ -97,7 +97,7 @@ app.post('/', function(req, res, next) {
 
   if(twentyQStartValues.includes(req.body.text)) { //start
     inTwentyQ = true; //DATABASE
-    akiinator.start("en", (resolve, error) => {
+    akinator.start("en", (resolve, error) => {
       if (error) {
         botPost("20 Questions is broken. Sorry.");
         inTwentyQ = false; //DATABASE
