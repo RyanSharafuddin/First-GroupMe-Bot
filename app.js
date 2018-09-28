@@ -10,7 +10,7 @@ var path = require('path');
 var http = require('http').Server(app);
 var request = require('request');
 var bodyParser = require('body-parser'); //used for getting body of posts.
-var akinator = require('akinator-api');
+const akinator = require('akinator-api');
 var port = process.env.PORT || 8000;
 
 var twentyQStartValues = ["20Q", "20q", "20 Questions", "20 questions"];
