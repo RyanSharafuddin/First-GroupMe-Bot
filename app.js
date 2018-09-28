@@ -152,7 +152,7 @@ app.post('/', function(req, res, next) { //CHANGED back to post
         step += 1; //DATABASE
         if(resolve.progress >= 85) {
           //WIN CODE
-          akinator.win("en", session, signature, step, (resolve, error) => {
+          aki.win("en", session, signature, step, (resolve, error) => {
             if (error) {
               botPost("20 Questions is broken. Sorry.");
               inTwentyQ = false; //DATABASE
