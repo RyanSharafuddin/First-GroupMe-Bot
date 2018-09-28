@@ -52,7 +52,7 @@ function botPost(text) {
   );
 }
 
-function displayAnswers() {
+var displayAnswers = function() {
   botPost("0 - Yes, 1 - No, 2 - Don't know, 3 - Probably, 4 - Probably not");
 }
 
@@ -98,6 +98,7 @@ app.post('/', function(req, res, next) { //CHANGED back to post
 
   if((req.body.sender_id == sam_id) && (Math.random() < .2)) { //20% chance of accusing Sam.
     botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
+    return;
   }
 
   if(twentyQStartValues.includes(req.body.text)) { //CHANGED -put req.body.text back in
