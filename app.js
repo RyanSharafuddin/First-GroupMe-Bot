@@ -95,7 +95,7 @@ app.post('/', function(req, res, next) {
     botPost("Disregard whatever " + req.body.name + " just said; it is obvious that he is a mafioso trying to deceive us all.");
   }
 
-  if(twentyQStartValues.includes(req.body.text)) { //start
+  if(twentyQStartValues.includes("20Q")) { //start -put req.body.text back in
     // inTwentyQ = true; //DATABASE
     // aki.start("en", (resolve, error) => {
     //   if (error) {
