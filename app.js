@@ -52,7 +52,7 @@ function botPost(text) {
   );
 }
 
-var displayAnswers = function() {
+function displayAnswers() {
   botPost("0 - Yes, 1 - No, 2 - Don't know, 3 - Probably, 4 - Probably not");
 }
 
@@ -129,7 +129,7 @@ app.post('/', function(req, res, next) { //CHANGED back to post
         session = resolve.session; //DATABASE
         step = 0; //DATABASE
         botPost(resolve.question);
-        setTimeout('displayAnswers', 1500);
+        setTimeout(displayAnswers, 1500);
       }
     });
 
