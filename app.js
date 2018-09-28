@@ -97,7 +97,7 @@ app.post('/', function(req, res, next) {
 
   if(twentyQStartValues.includes(req.body.text)) { //start
     inTwentyQ = true; //DATABASE
-    aki.start("en", (resolve, error) => {
+    akiinator.start("en", (resolve, error) => {
       if (error) {
         botPost("20 Questions is broken. Sorry.");
         inTwentyQ = false; //DATABASE
@@ -114,7 +114,7 @@ app.post('/', function(req, res, next) {
   }
 
   if(inTwentyQ && answers.includes(req.body.text)) { //DATABASE
-    aki.step("en", session, signature, req.body.text, step, (resolve, error) => { //DATABASE
+    akinator.step("en", session, signature, req.body.text, step, (resolve, error) => { //DATABASE
       if (error) {
         botPost("20 Questions is broken. Sorry.");
         inTwentyQ = false; //DATABASE
@@ -123,7 +123,7 @@ app.post('/', function(req, res, next) {
         step += 1; //DATABASE
         if(resolve.progress >= 85) {
           //WIN CODE
-          aki.win("en", session, signature, step, (resolve, error) => {
+          akinator.win("en", session, signature, step, (resolve, error) => {
             if (error) {
               botPost("20 Questions is broken. Sorry.");
               inTwentyQ = false; //DATABASE
