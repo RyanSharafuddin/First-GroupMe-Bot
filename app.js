@@ -3,6 +3,12 @@
   the number of times Fuddin posts in the FuddinTestGroup and every time Fuddin
   posts, the bot makes a post of its own saying how many times Fuddin has posted
   and also all fields of the bot response (except text).
+
+  1) Win Image
+  2) Database
+  3) Continue? Y/N
+
+
 */
 var express = require('express');
 var app = express();
@@ -13,13 +19,6 @@ var bodyParser = require('body-parser'); //used for getting body of posts.
 var port = process.env.PORT || 8000;
 const aki = require('aki-api');
 
-// aki.start("en", (resolve, error) => {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log(resolve);
-//   }
-// });
 
 
 var twentyQStartValues = ["20Q", "20q", "20 Questions", "20 questions"];
@@ -64,7 +63,7 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded()); //necesary to handle post requests
 
-app.post('/', function(req, res, next) { //CHANGED back to post
+app.post('/', function(req, res, next) {
 
 // if(req.body.name == "Fuddin") {
 //   console.log("Has received message from Fuddin; is about to do first client.query()");
@@ -102,20 +101,6 @@ app.post('/', function(req, res, next) { //CHANGED back to post
   }
 
   if(twentyQStartValues.includes(req.body.text)) { //CHANGED -put req.body.text back in
-    // inTwentyQ = true; //DATABASE
-    // aki.start("en", (resolve, error) => {
-    //   if (error) {
-    //     botPost("20 Questions is broken. Sorry.");
-    //     inTwentyQ = false; //DATABASE
-    //   }
-    //   else {
-    //     signature = resolve.signature; //DATABASE
-    //     session = resolve.session; //DATABASE
-    //     step = 0; //DATABASE
-    //     botPost(resolve.question);
-    //     displayAnswers();
-    //   }
-    // });
 
     aki.start("en", (resolve, error) => {
       if (error) {
@@ -132,32 +117,28 @@ app.post('/', function(req, res, next) { //CHANGED back to post
         setTimeout(displayAnswers, 1500);
       }
     });
-
-    // const data = await akinator.start("en");
-    // signature = data.signature; //DATABASE
-    // session = data.session; //DATABASE
-    // step = 0; //DATABASE
-    // botPost(data.question);
-    // displayAnswers();
-
   }
 
   if(inTwentyQ && answers.includes(req.body.text)) { //DATABASE
     aki.step("en", session, signature, req.body.text, step, (resolve, error) => { //DATABASE
       if (error) {
+        console.log(error);
         botPost("20 Questions is broken. Sorry.");
         inTwentyQ = false; //DATABASE
       }
       else {
+        console.log(resolve);
         step += 1; //DATABASE
         if(resolve.progress >= 85) {
           //WIN CODE
           aki.win("en", session, signature, step, (resolve, error) => {
             if (error) {
+              console.log(error);
               botPost("20 Questions is broken. Sorry.");
               inTwentyQ = false; //DATABASE
             }
             else {
+              console.log(resolve);
               botPost("I guess it is: " + resolve.answers[0].name);
               inTwentyQ = false; //DATABASE
               step = 0; //DATABASE
@@ -180,7 +161,6 @@ http.listen(port, function() {
     console.log("Remember that if you are running this on your local machine," +
        " you need to set the environment variable using export BOT_ID for it to work." +
        " The export keyword is important.");
-    botPost("THE BOT IS NOW ONLINE!");
 
 //     request.post(
 //     'https://api.groupme.com/v3/bots/post',
