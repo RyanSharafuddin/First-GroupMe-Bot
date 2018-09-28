@@ -53,7 +53,7 @@ function botPost(text) {
 }
 
 function displayAnswers() {
-  botPost("0 - Yes, 1 - No, 2 - Don't know, 3 - Probably, 4 - Probably not");
+  botPost("0: Yes, 1: No, 2: Don't know, 3: Probably, 4: Probably not");
 }
 
 app.get('/', function(req, res) {
@@ -143,7 +143,7 @@ app.post('/', function(req, res, next) { //CHANGED back to post
   }
 
   if(inTwentyQ && answers.includes(req.body.text)) { //DATABASE
-    akinator.step("en", session, signature, req.body.text, step, (resolve, error) => { //DATABASE
+    aki.step("en", session, signature, req.body.text, step, (resolve, error) => { //DATABASE
       if (error) {
         botPost("20 Questions is broken. Sorry.");
         inTwentyQ = false; //DATABASE
