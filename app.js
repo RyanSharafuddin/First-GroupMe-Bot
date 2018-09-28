@@ -93,6 +93,7 @@ app.post('/', function(req, res, next) {
     //           + "\nsource_guid: " + req.body.source_guid
     //           + "\nsystem: " + req.body.system
     //           + "\nuser_id: " + req.body.user_id);
+    console.log("'" + req.body.name + "'" + " just posted!")
   }
 
   if((req.body.sender_id == sam_id) && (Math.random() < .2)) { //20% chance of accusing Sam.
