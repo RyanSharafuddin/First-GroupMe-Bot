@@ -96,18 +96,25 @@ app.post('/', function(req, res, next) {
   }
 
   if(twentyQStartValues.includes(req.body.text)) { //start
-    inTwentyQ = true; //DATABASE
+    // inTwentyQ = true; //DATABASE
+    // aki.start("en", (resolve, error) => {
+    //   if (error) {
+    //     botPost("20 Questions is broken. Sorry.");
+    //     inTwentyQ = false; //DATABASE
+    //   }
+    //   else {
+    //     signature = resolve.signature; //DATABASE
+    //     session = resolve.session; //DATABASE
+    //     step = 0; //DATABASE
+    //     botPost(resolve.question);
+    //     displayAnswers();
+    //   }
+    // });
     aki.start("en", (resolve, error) => {
       if (error) {
-        botPost("20 Questions is broken. Sorry.");
-        inTwentyQ = false; //DATABASE
-      }
-      else {
-        signature = resolve.signature; //DATABASE
-        session = resolve.session; //DATABASE
-        step = 0; //DATABASE
-        botPost(resolve.question);
-        displayAnswers();
+        console.log(error);
+      } else {
+        console.log(resolve);
       }
     });
     // const data = await akinator.start("en");
