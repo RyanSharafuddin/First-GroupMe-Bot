@@ -176,7 +176,7 @@ app.post('/', function(req, res, next) {
     }
     var rand = replies[Math.floor(Math.random() * replies.length)];
     botPost(rand);
-    botPost("Thanks for playing!");
+    setTimeout(botPost, 3000, "Thanks for playing!");
   }
 
   next();
