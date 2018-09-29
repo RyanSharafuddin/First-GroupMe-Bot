@@ -3,12 +3,6 @@
   the number of times Fuddin posts in the FuddinTestGroup and every time Fuddin
   posts, the bot makes a post of its own saying how many times Fuddin has posted
   and also all fields of the bot response (except text).
-
-  1) Win Image
-  2) Database
-  3) Continue? Y/N
-
-
 */
 var express = require('express');
 var app = express();
@@ -23,6 +17,7 @@ const aki = require('aki-api');
 
 var twentyQStartValues = ["20Q", "20q", "20 Questions", "20 questions"];
 var inTwentyQ = false; //PUT IN DATABASE
+var receivingEvaluation = false; //Waiting for results of asking how did.
 var step = 0; //DATABASE
 var session; //DATABASE
 var signature; //DATABASE
@@ -53,6 +48,15 @@ function botPost(text) {
 
 function displayAnswers() {
   botPost("0: Yes, 1: No, 2: Don't know, 3: Probably, 4: Probably not");
+}
+
+function askHowDid() {
+  botPost("So . . . how did I do?");
+  setTimeout(evaluations, 3000);
+}
+
+function evaluations() {
+  botPost("0: Right! Great Job!, 1: Wrong. I'm disappointed in you, computer.");
 }
 
 app.get('/', function(req, res) {
@@ -108,6 +112,7 @@ app.post('/', function(req, res, next) {
         console.log(error);
         botPost("20 Questions is broken. Sorry.");
         inTwentyQ = false; //DATABASE
+        receivingEvaluation = false;
       } else {
         console.log(resolve);
         inTwentyQ = true; //DATABASE
@@ -116,6 +121,7 @@ app.post('/', function(req, res, next) {
         step = 0; //DATABASE
         botPost(resolve.question);
         setTimeout(displayAnswers, 1500);
+        receivingEvaluation = false;
       }
     });
   }
@@ -143,6 +149,8 @@ app.post('/', function(req, res, next) {
               botPost("I guess it is: " + resolve.answers[0].name);
               inTwentyQ = false; //DATABASE
               step = 0; //DATABASE
+              setTimeout(askHowDid, 3000); // ASK HOW I DID?
+              receivingEvaluation = true;
             }
           });
         }
@@ -152,6 +160,23 @@ app.post('/', function(req, res, next) {
         }
       }
     });
+  }
+
+  if(receivingEvaluation) {
+    if( (req.body.text != "0") && (req.body.text != "1")) {
+      return;
+    }
+    receivingEvaluation = false;
+    var replies;
+    if(req.body.text == "0") {
+      replies = [":)", "(^_^)"];
+    }
+    if(req.body.text == "1") {
+      replies = ["I will try harder next time."];
+    }
+    var rand = replies[Math.floor(Math.random() * replies.length)];
+    botPost(rand);
+    botPost("Thanks for playing!");
   }
 
   next();
