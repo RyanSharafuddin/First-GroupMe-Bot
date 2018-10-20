@@ -35,12 +35,13 @@ client.connect();
 var bot_id = process.env.BOT_ID;
 var sam_id = "48077875";
 
-function botPost(text) {
+function botPost(text, attachments) {
   request.post(
   'https://api.groupme.com/v3/bots/post',
   { json: {
       "bot_id"  : bot_id,
-      "text"    : text
+      "text"    : text,
+      "attachments": attachments
     }
   }
   );
@@ -57,6 +58,19 @@ function askHowDid() {
 
 function evaluations() {
   botPost("0: Right! Great Job!, 1: Wrong. I'm disappointed in you, computer.");
+}
+
+function botWon() {
+  charmaps = [[[1,0]], [[1,1]], [[1,3]], [[1,2]]];
+  charmap = charmaps[Math.floor(Math.random() * charmaps.length)]
+  botPost("�", [{charmap: charmap, placeholder: "�",type: "emoji"}]);
+  setTimeout(botPost, 3000, "Thanks for playing!");
+}
+
+function botLost() {
+  botPost("�", [{charmap: [[1,35]], placeholder: "�",type: "emoji"}]);
+  setTimeout(botPost, 3000, "I will try harder next time");
+  setTimeout(botPost, 6000, "Thanks for playing!");
 }
 
 app.get('/', function(req, res) {
@@ -169,14 +183,11 @@ app.post('/', function(req, res, next) {
     receivingEvaluation = false;
     var replies;
     if(req.body.text == "0") {
-      replies = [":)", "(^_^)"];
+      botWon();
     }
     if(req.body.text == "1") {
-      replies = ["I will try harder next time."];
+      botLost();
     }
-    var rand = replies[Math.floor(Math.random() * replies.length)];
-    botPost(rand);
-    setTimeout(botPost, 3000, "Thanks for playing!");
   }
 
   next();
@@ -187,6 +198,8 @@ http.listen(port, function() {
     console.log("Remember that if you are running this on your local machine," +
        " you need to set the environment variable using export BOT_ID for it to work." +
        " The export keyword is important.");
+  // botPost("Hi �", [{charmap: [[1,0]], placeholder: "�",type: "emoji"}]);
+
 
 //     request.post(
 //     'https://api.groupme.com/v3/bots/post',
